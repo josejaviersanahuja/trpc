@@ -1,67 +1,68 @@
-import http from 'http';
-import createError, { HttpError } from 'http-errors';
-import app from './app';
-
+import http from 'http'
+import { HttpError } from 'http-errors'
+import debug from 'debug'
+import app from './app'
+const debugLog = debug('server:dev')
 /**
  * Normalize a port into a number, string, or false.
  */
 
-function normalizePort(val : string) {
-  const port = parseInt(val, 10);
+function normalizePort (val : string) {
+  const port = parseInt(val, 10)
 
   if (Number.isNaN(port)) {
     // named pipe
-    return val;
+    return val
   }
 
   if (port >= 0) {
     // port number
-    return port;
+    return port
   }
 
-  return false;
+  return false
 }
 
 /**
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || '4000');
-app.set('port', port);
+const port = normalizePort(process.env.PORT || '4000')
+app.set('port', port)
 
 /**
  * Create HTTP server.
  */
 
-const server = http.createServer(app);
+const server = http.createServer(app)
 
 /**
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error : HttpError) { //@CHECK this type may not be right
+function onError (error : HttpError) { // @CHECK this type may not be right
   if (error.syscall !== 'listen') {
-    console.log(error.code, 'LEARNING ERRORS');
-    throw error;
+    debugLog(error.code, 'LEARNING ERRORS')
+    throw error
   }
 
   const bind = typeof port === 'string'
     ? `Pipe ${port}`
-    : `Port ${port}`;
+    : `Port ${port}`
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(`${bind} requires elevated privileges`);
-      process.exit(1);
-      break;
+      console.error(`${bind} requires elevated privileges`)
+      process.exit(1)
+      break
     case 'EADDRINUSE':
-      console.error(`${bind} is already in use`);
-      process.exit(1);
-      break;
+      console.error(`${bind} is already in use`)
+      process.exit(1)
+      break
     default:
-      console.log(error.code, 'LEARNING ERRORS');
-      throw error;
+      console.log(error.code, 'LEARNING ERRORS')
+      throw error
   }
 }
 
@@ -69,18 +70,18 @@ function onError(error : HttpError) { //@CHECK this type may not be right
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening() {
-  const addr = server.address();
+function onListening () {
+  const addr = server.address()
   const bind = typeof addr === 'string'
     ? `pipe ${addr}`
-    : `port ${addr?.port}`;
-  console.log(`Listening on ${bind}`); // @TODO Change for debug
+    : `port ${addr?.port}`
+  debugLog(`Listening on ${bind}`)
 }
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+server.listen(port)
+server.on('error', onError)
+server.on('listening', onListening)
