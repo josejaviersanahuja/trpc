@@ -18,7 +18,7 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 // Logging
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+const accessLogStream = fs.createWriteStream(path.join(__dirname, '/../access.log'), { flags: 'a' })
 app.use(logger('combined', { stream: accessLogStream }))
 
 // Middlewares

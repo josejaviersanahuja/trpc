@@ -1,3 +1,0 @@
-::1 - - [01/Feb/2023:14:48:16 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
-::1 - - [01/Feb/2023:14:48:58 +0000] "GET / HTTP/1.1" 304 -
-[0mGET / [36m304[0m 4.040 ms - -[0m
